@@ -75,6 +75,7 @@ $isi = !empty($data['isi_pengumuman']) ? nl2br($data['isi_pengumuman']) : "Belum
 
 <!-- ANNOUNCEMENT SECTION -->
 <div class="announcement-section">
+    <img src="img/logo/logo.png">
     <h3>PENGUMUMAN</h3>
     <p>Pengumuman dan informasi penting Lab Applied Informatics</p>
     <a href="semua_pengumuman.php" class="btn-explore">Jelajahi Semua Artikel →</a>
