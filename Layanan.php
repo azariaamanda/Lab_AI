@@ -13,9 +13,9 @@ require 'koneksi.php';
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- LINK CSS -->
-    <link rel="stylesheet" href="StyleNavbar.css">
-    <link rel="stylesheet" href="StyleLayanan.css">
-    <link rel="stylesheet" href="StyleFooter.css">
+    <link rel="stylesheet" href="css/StyleNavbar.css">
+    <link rel="stylesheet" href="css/StyleLayanan.css">
+    <link rel="stylesheet" href="css/StyleFooter.css">
 </head>
 <body>
 
