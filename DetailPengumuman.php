@@ -22,9 +22,9 @@ $isi = !empty($data['isi_pengumuman']) ? nl2br($data['isi_pengumuman']) : "Belum
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="StyleNavbar.css">
-  <link rel="stylesheet" href="DPstyle.css">
-  <link rel="stylesheet" href="StyleFooter.css">
+  <link rel="stylesheet" href="css/StyleNavbar.css">
+  <link rel="stylesheet" href="css/DPstyle.css">
+  <link rel="stylesheet" href="css/StyleFooter.css">
 </head>
 
 <body>
