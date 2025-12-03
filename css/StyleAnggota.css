@@ -1,0 +1,231 @@
+:root {
+  --bg: #f9ecee; 
+  --accent: #2b5363; 
+  --muted: #d9c7c7; 
+  --primary-text: #08385F;
+  --hover-color: #FF8A00;
+  --container: 1100px;
+  --card-radius: 12px;
+  --gutter: 24px;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* Gradient background sesuai request */
+  background: linear-gradient(180deg, #092742 0%, #062c3a 6%, rgba(0,0,0,0) 6%), var(--bg);
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Agar background tetap saat discroll */
+  color: #24343a;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* NAVBAR MELENGKUNG */
+.navbar {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Agar navbar tetap di atas saat scroll, opsional: */
+  /* position: sticky; top: 0; z-index: 100; */
+}
+
+.nav-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  z-index: 1;
+  pointer-events: none; /* Agar klik tembus ke elemen di bawahnya jika perlu */
+}
+
+.nav-bg svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.nav-content {
+  position: relative;
+  z-index: 10;
+  width: var(--container);
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%; /* Memastikan konten rata tengah vertikal */
+}
+
+/* LOGO */
+.logo img {
+  height: 55px;
+  position: relative;
+  z-index: 20;
+  /* Sedikit penyesuaian posisi agar pas di tengah lengkungan */
+  margin-top: -15px; 
+  object-fit: contain;
+}
+
+/* MENU */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  z-index: 30;
+  /* Menghapus margin-bottom agar sejajar dengan logo */
+  align-items: center;
+  margin-top: -15px; /* Menyesuaikan dengan posisi logo */
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--primary-text);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: 0.25s;
+  letter-spacing: 0.5px;
+}
+
+nav a:hover, nav a.active {
+  color: var(--hover-color);
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  height: 350px; /* Sedikit dipertinggi */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: -40px; /* Menarik hero ke atas sedikit agar menyatu dengan navbar */
+  z-index: 0;
+}
+
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Filter agar teks lebih terbaca */
+  filter: contrast(0.9) saturate(0.9) brightness(0.6); 
+}
+
+.hero h1 {
+  position: relative;
+  color: white;
+  letter-spacing: 8px;
+  font-size: 64px;
+  font-weight: 800;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  margin: 0;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+/* MAIN CONTAINER (Agar konten tidak nempel pinggir) */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.content-placeholder {
+  background: white;
+  padding: 40px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  min-height: 300px;
+}
+
+/* CURSOR POINTER UNTUK TRIGGER PROFIL */
+.profile-trigger {
+  cursor: pointer;
+}
+
+/* STYLE UNTUK AVATAR */
+.member-avatar img, .card-avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* MODAL STYLES */
+.modal {
+  display: none; /* Sembunyikan secara default */
+  position: fixed; /* Tetap di layar saat scroll */
+  z-index: 1000; /* Tampil di atas segalanya */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Aktifkan scroll jika konten panjang */
+  background-color: rgba(0,0,0,0.6); /* Latar belakang gelap transparan */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* Posisikan di tengah */
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  animation: slideIn 0.4s ease-out;
+}
+
+.modal-close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal-header-info h3 { margin: 0; color: var(--primary-text); }
+.modal-header-info p { margin: 5px 0 0; color: #666; }
+
+/* Animasi untuk Modal */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
