@@ -1,0 +1,267 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background:  linear-gradient(135deg, #1e7a92 0%, #2a9ab7 100%);
+  color: #333;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.hero h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Form Container */
+.form-container {
+  background: linear-gradient(135deg, #1e7a92 0%, #2a9ab7 100%);
+  padding: 60px 20px;
+  min-height: 600px;
+}
+
+.form-wrapper {
+  max-width: 800px;
+  margin: 0 auto;;
+  border-radius: 15px;
+  padding: 40px;
+  /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); */
+}
+
+/* Form Header */
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.form-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+/* Form Styles */
+.registration-form {
+  color: white;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: white;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+/* File Upload */
+.file-upload {
+  position: relative;
+}
+
+.file-upload input[type="file"] {
+  display: none;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 12px 25px;
+  background: #ff9856;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.file-label:hover {
+  background: #ff8740;
+  transform: translateY(-2px);
+}
+
+.file-info {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 6px;
+}
+
+/* Declaration */
+.declaration {
+  /* background: rgba(255, 255, 255, 0.1); */
+  padding: 25px;
+  border-radius: 10px;
+  margin: 30px 0;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  gap: 12px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.checkbox-wrapper label {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: white;
+  cursor: pointer;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 50%;
+  padding: 15px;
+  background: #ff9856;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 152, 86, 0.3);
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-btn:hover {
+  background: #ff8740;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 152, 86, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.form-container {
+
+    justify-content: center; /* Senter elemen di sumbu horizontal */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+
+  .form-wrapper {
+    padding: 30px 20px;
+  }
+
+  .form-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .submit-btn {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 250px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .form-container {
+    padding: 40px 15px;
+  }
+
+  .form-wrapper {
+    padding: 25px 15px;
+  }
+
+  .form-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .form-header p {
+    font-size: 0.9rem;
+  }
+}
