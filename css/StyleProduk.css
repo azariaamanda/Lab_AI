@@ -1,0 +1,118 @@
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+/* Card */
+.produk-card {
+  background: #ffa954;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+
+.toggle {
+  display: none;
+}
+
+/* Header */
+.produk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  cursor: pointer;
+}
+
+.produk-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.produk-logo {
+  width: 130px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.produk-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Container untuk elemen yang ditumpuk */
+.dropdown-icon {
+  position: relative; /* PENTING: Menjadi acuan positioning */
+  width: 25px; /* Sesuaikan lebar container agar elemen tumpukan pas */
+  height: 25px; /* Sesuaikan tinggi container */
+  margin-right: 15px; 
+}
+
+/* Style untuk lingkaran kecil (Background) */
+.circle-indicator {
+  position: absolute; /* PENTING: Positioning Mutlak */
+  width: 35px; /* Ukuran lingkaran dibuat lebih besar agar terlihat di bawah panah */
+  height: 35px;
+  background-color: #0F3F53; 
+  border-radius: 50%;
+  display: block;
+  top: 60%; /* Posisikan di tengah container secara vertikal */
+  left: 50%; /* Posisikan di tengah container secara horizontal */
+  transform: translate(-50%, -50%); /* Geser kembali 50% dari ukurannya sendiri */
+  z-index: 1; /* Posisikan di lapisan bawah (belakang) */
+}
+
+.simple-arrow{
+  position: absolute; /* PENTING: Positioning Mutlak */
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: solid #ffffff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease-out;
+  margin: 0;
+  top: 50%; /* Posisikan di tengah container secara vertikal */
+  left: 50%; /* Posisikan di tengah container secara horizontal */
+  transform: translate(-50%, -50%) rotate(45deg); /* Geser & Rotasi */
+  z-index: 2; /* Posisikan di lapisan atas (depan) */
+}
+
+
+/* Dropdown */
+.produk-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 25px;
+  color: black;
+}
+
+.toggle:checked ~ .produk-content {
+  max-height: 500px;
+  padding: 0px 25px 25px 25px; /* Padding atas dikurangi */
+}
+
+.toggle:checked + label .simple-arrow { /* Ganti .icon menjadi .simple-arrow */
+  transform: translate(-50%, -20%) rotate(-135deg); /* Mengubah rotasi panah agar menunjuk ke atas */
+}
+
+/* Text */
+.produk-content p {
+  text-align: center;
+}
+
+/* Button */
+.btn-gunakan {
+  display: block;
+  margin: 20px auto 0;
+  width: 180px;
+  padding: 10px;
+  text-align: center;
+  background: linear-gradient(to right, #083c5d, #0c607d);
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
