@@ -1,0 +1,216 @@
+:root {
+  --bg: #ffffff; 
+  --accent: #8da3b5; 
+  --muted: #d9c7c7; 
+  --primary-text: #08385F;
+  --hover-color: #FF8A00;
+  --container: 1100px;
+  --card-radius: 12px;
+  --gutter: 24px;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  overflow-x: hidden;
+  color: #24343a;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 40px auto;
+  padding: 0 var(--gutter);
+}
+
+/* FOOTER STYLES */
+.footer {
+  background-color: var(--primary-text); /* #08385F */
+  color: #EAEAEA;
+  padding-top: 50px;
+  margin-top: 60px;
+  position: relative;
+}
+
+.footer-top-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--hover-color); /* #FF8A00 */
+}
+
+.footer-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 180px;
+  margin-bottom: 20px;
+}
+
+.footer-col.footer-logo {
+  flex-basis: 25%;
+  min-width: 250px;
+}
+
+.footer-logo img {
+  height: 45px;
+  margin-bottom: 15px;
+}
+
+.footer-logo p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #bdcdd4;
+  margin-right: 20px;
+}
+
+.footer-col h4 {
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #bdcdd4;
+}
+
+.footer-col ul a {
+  color: #bdcdd4;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-col ul a:hover {
+  color: var(--hover-color);
+}
+
+.footer-right {
+  flex: 1.5;
+  min-width: 300px;
+}
+
+.footer-map iframe {
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 0;
+}
+
+.footer-right p {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #bdcdd4;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.footer-right p img {
+  height: 16px;
+  margin-top: 4px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid #2b5363; /* Garis pemisah */
+  font-size: 13px;
+  color: #8ca8be;
+}
+
+/* MODAL STYLES (dipindahkan dari Style.css) */
+.modal {
+  display: none; /* Sembunyikan secara default */
+  position: fixed; /* Tetap di layar saat scroll */
+  z-index: 1000; /* Tampil di atas segalanya */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Aktifkan scroll jika konten panjang */
+  background-color: rgba(0,0,0,0.6); /* Latar belakang gelap transparan */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* Posisikan di tengah */
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  animation: slideIn 0.4s ease-out;
+}
+
+.modal-close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal-header-info h3 { margin: 0; color: var(--primary-text); }
+.modal-header-info p { margin: 5px 0 0; color: #666; }
+
+/* Animasi untuk Modal */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
