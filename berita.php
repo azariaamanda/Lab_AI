@@ -41,29 +41,29 @@ $agenda_result = pg_query($conn, $agenda_query);
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berita - Laboratory Applied Informatics</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styleBerita.css">
-</head>
-<body>
-            <!-- HEADER & NAVBAR -->
+    <html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Beranda - Laboratory Applied Informatics</title>
+        
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/styleBerita.css">
+        <link rel="stylesheet" href="css/styleFooter.css">
+    </head>
+    <body>
+        <!-- HEADER & NAVBAR -->
         <header class="header-section">
             <!-- Background SVG -->
             <div class="header-bg">
@@ -178,10 +178,6 @@ $agenda_result = pg_query($conn, $agenda_query);
                                     echo htmlspecialchars($deskripsi);
                                     ?>
                                 </p>
-                                <a href="<?php echo htmlspecialchars($berita['link_berita']); ?>" 
-                                   class="berita-link" target="_blank">
-                                    Baca Selengkapnya <i class="fas fa-arrow-right"></i>
-                                </a>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -273,5 +269,7 @@ $agenda_result = pg_query($conn, $agenda_query);
             });
         });
     </script>
+
+    <?php include 'footer.php'; ?>
 </body>
 </html>

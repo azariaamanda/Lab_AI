@@ -1,7 +1,12 @@
 <?php
 include "koneksi.php";
+include 'Navbar.php';
 
 $filter = isset($_GET['kategori']) ? $_GET['kategori'] : "all";
+
+// Ambil data navbar
+$nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
+$nav_result = pg_query($conn, $nav_query);
 
 // statistik
 $total_foto   = pg_fetch_result(pg_query($conn, "SELECT COUNT(*) FROM galeri WHERE id_jenis_galeri = 1"), 0, 0);
@@ -44,42 +49,22 @@ $footer = pg_fetch_assoc($footer_query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/stylegaleri.css">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="nav-bg">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-      <rect width="1440" height="90" fill="#0A2346" fill-opacity="0.8"/>
-      <path opacity="0.9" d="M0 0H1440C1440 41.4214 1406.42 75 1365 75H75C33.5786 75 0 41.4214 0 0Z" fill="white"/>
-    </svg>
-  </div>
-
-  <div class="nav-content">
-    <div class="logo">
-      <img src="img/logo.png" alt="logo">
+<!-- HEADER BERITA -->
+<section class="berita-header" style="background-image: url('img/header/headerjti.jpg');">
+    <div class="overlay">
+        <div class="container">
+            <h1 class="berita-title">BERITA</h1>
+        </div>
     </div>
-    <nav>
-      <ul>
-        <li><a href="Beranda.php">Beranda</a></li>
-        <li><a href="Produk.php">Produk</a></li>
-        <li><a href="Mitra.php">Mitra</a></li>
-        <li><a href="Berita.php">Berita</a></li>
-        <li><a href="Galeri.php">Galeri</a></li>
-        <li><a href="layanan.php">Layanan</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<!-- HERO -->
-<div class="hero">
-  <img src="img/gedung-sipil.jpg" alt="hero">
-  <h1>GALERI</h1>
-</div>
+</section>
 
 <!-- STATISTIK -->
 <div class="stats">

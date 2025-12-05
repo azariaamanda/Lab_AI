@@ -73,6 +73,8 @@
         
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/styleBeranda.css">
+        <link rel="stylesheet" href="css/styleFooter.css">
+
     </head>
     <body>
         <!-- HEADER & NAVBAR -->
@@ -298,20 +300,9 @@
         </section>
         </main>
 
-        <!-- FOOTER -->
-        <footer class="footer-section">
-            <div class="container">
-                <div class="footer-content">
-                    <!-- Footer akan ditambahkan sesuai kebutuhan -->
-                    <p class="footer-text">© 2025 Laboratory Applied Informatics - Politeknik Negeri Malang</p>
-                </div>
-            </div>
-        </footer>
+        <?php include 'footer.php'; ?>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        
-        <!-- Custom JS -->
-        <script src="js/beranda.js"></script>
     </body>
-    </html>
+</html>

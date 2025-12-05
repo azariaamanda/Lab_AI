@@ -128,7 +128,7 @@ if (isset($_POST['submit_pendaftaran'])) {
   </div>
 
   <div class="nav-content">
-    <div class="logo"><img src="img/logo.png"></div>
+    <div class="logo"><img src="img/logo/logo.png"></div>
     <nav>
       <ul>
         <li><a href="Beranda.php">Beranda</a></li>
@@ -143,7 +143,7 @@ if (isset($_POST['submit_pendaftaran'])) {
 </header>
 
 <div class="hero">
-    <img src="img/gedung-sipil.jpg" alt="hero" />
+    <img src="img/header/headerjti.jpg" alt="hero" />
     <h1>PENDAFTARAN ASLAB</h1>
 </div>
 
