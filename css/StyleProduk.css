@@ -1,118 +1,295 @@
-.container {
-  width: 90%;
-  max-width: 900px;
-  margin: 40px auto;
+:root {
+    --primary-color: #0A2346;
+    --secondary-color: #1A365D;
+    --accent-color: #da6f2d;
+    --light-blue: #206cdd;
+    --white: #FFFFFF;
+    --text: #4C6C7A;
+    --gray-light: #f8faf8;
+    --gray-medium: #6C757D;
+    --gray-dark: #343A40;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --radius: 10px;
 }
 
-/* Card */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--gray-dark);
+    background: var(--white);
+}
+
+.container {
+    width: 100%;
+    max-width: none;
+}
+
+/* =============================== */
+/*             HEADER              */
+/* =============================== */
+
+.header-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1000;
+}
+
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.header-bg svg {
+    width: 100%;
+    height: 100%;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 72px;
+    height: 100%;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    z-index: 999;
+}
+
+.logo {
+    height: 60px;
+    transition: .3s;
+}
+
+/* =============================== */
+/*              NAVBAR             */
+/* =============================== */
+
+.navbar-section {
+    display: flex;
+    padding-bottom: 16px;
+
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-item.active .nav-link {
+    color: var(--accent-color);
+}
+
+.nav-link::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    transition: .3s;
+}
+
+.nav-link:hover::after,
+.nav-item.active .nav-link::after {
+    width: 100%;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    font-size: 24px;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* =============================== */
+/*          HEADER PRODUK          */
+/* =============================== */
+
+.berita-header {
+    margin-top: 80px;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.berita-title {
+    color: white;
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* =============================== */
+/*             PRODUK              */
+/* =============================== */
+
+.produk-wrapper{
+  padding-left: 100px;
+  padding-right: 100px;
+}
 .produk-card {
-  background: #ffa954;
-  border-radius: 20px;
-  margin-bottom: 25px;
-  overflow: hidden;
+    background: #ffa954;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    overflow: hidden;
 }
 
 .toggle {
-  display: none;
+    display: none;
 }
 
-/* Header */
 .produk-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 25px;
-  cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 25px;
+    cursor: pointer;
 }
 
 .produk-left {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .produk-logo {
-  width: 130px;
-  height: 90px;
-  object-fit: contain;
+    width: 130px;
+    height: 90px;
+    object-fit: contain;
 }
 
-.produk-title {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-/* Container untuk elemen yang ditumpuk */
 .dropdown-icon {
-  position: relative; /* PENTING: Menjadi acuan positioning */
-  width: 25px; /* Sesuaikan lebar container agar elemen tumpukan pas */
-  height: 25px; /* Sesuaikan tinggi container */
-  margin-right: 15px; 
+    width: 25px;
+    height: 25px;
+    position: relative;
+    align-items: center;
 }
 
-/* Style untuk lingkaran kecil (Background) */
 .circle-indicator {
-  position: absolute; /* PENTING: Positioning Mutlak */
-  width: 35px; /* Ukuran lingkaran dibuat lebih besar agar terlihat di bawah panah */
-  height: 35px;
-  background-color: #0F3F53; 
-  border-radius: 50%;
-  display: block;
-  top: 60%; /* Posisikan di tengah container secara vertikal */
-  left: 50%; /* Posisikan di tengah container secara horizontal */
-  transform: translate(-50%, -50%); /* Geser kembali 50% dari ukurannya sendiri */
-  z-index: 1; /* Posisikan di lapisan bawah (belakang) */
+    width: 35px;
+    height: 35px;
+    background: #0F3F53;
+    border-radius: 50%;
+    position: absolute;
+    top: 180%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
-.simple-arrow{
-  position: absolute; /* PENTING: Positioning Mutlak */
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border: solid #ffffff;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-  transition: transform 0.3s ease-out;
-  margin: 0;
-  top: 50%; /* Posisikan di tengah container secara vertikal */
-  left: 50%; /* Posisikan di tengah container secara horizontal */
-  transform: translate(-50%, -50%) rotate(45deg); /* Geser & Rotasi */
-  z-index: 2; /* Posisikan di lapisan atas (depan) */
+.simple-arrow {
+    width: 12px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    position: absolute;
+    top: 178% !important;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    z-index: 2;
+    transition: .3s;
 }
 
+.toggle:checked + label .simple-arrow {
+    transform: translate(-50%, -50%) rotate(-135deg);
+    top: 180% !important;
+}
 
-/* Dropdown */
 .produk-content {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 25px;
-  color: black;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 25px;
+    transition: .4s;
 }
 
 .toggle:checked ~ .produk-content {
-  max-height: 500px;
-  padding: 0px 25px 25px 25px; /* Padding atas dikurangi */
+    max-height: 500px;
+    padding: 0 25px 25px;
 }
 
-.toggle:checked + label .simple-arrow { /* Ganti .icon menjadi .simple-arrow */
-  transform: translate(-50%, -20%) rotate(-135deg); /* Mengubah rotasi panah agar menunjuk ke atas */
-}
-
-/* Text */
 .produk-content p {
-  text-align: center;
+    text-align: center;
 }
 
-/* Button */
 .btn-gunakan {
-  display: block;
-  margin: 20px auto 0;
-  width: 180px;
-  padding: 10px;
-  text-align: center;
-  background: linear-gradient(to right, #083c5d, #0c607d);
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: bold;
+    display: block;
+    width: 180px;
+    margin: 20px auto 0;
+    padding: 10px;
+    text-align: center;
+    background: linear-gradient(to right, #083c5d, #0c607d);
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =============================== */
+/*          RESPONSIVE             */
+/* =============================== */
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 20px;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .navbar-section {
+        display: none;
+    }
+    
+    .nav-menu.show {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: var(--shadow);
+    }
+    
+    .berita-title {
+        font-size: 2.5rem;
+    }
 }

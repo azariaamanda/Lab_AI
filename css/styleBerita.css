@@ -27,10 +27,29 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: none;     /* FULL WIDTH */
     margin: 0 auto;
     padding: 0 15px;
 }
+.kategori-section {
+    width: 100%;
+    max-width: 1200px !important;   /* 🔥 batas di sectionnya */
+    margin: 0 auto;      /* center */
+    padding: 20px 15px;  /* padding aman */
+}
+
+.berita-section {
+    width: 100%;
+    max-width: 1200px !important;   /* 🔥 batas di sectionnya */
+    margin: 0 auto;      /* center */
+    padding: 20px 15px;  /* padding aman */
+}
+
+.kategori-wrapper {
+    width: 100%;
+    max-width: none;
+}
+
 
 /* HEADER */
 .header-section {
@@ -62,18 +81,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     height: 80px;
-    padding: 0 20px;
+    padding: 0 72px;
 }
 
 /* Logo */
 .logo-section {
     display: flex;
     align-items: center;
+    gap: 15px;
+    padding-bottom: 16px;
 }
 
 .logo-img img {
-    height: 50px;
+    height: 60px;
     width: auto;
     transition: transform 0.3s ease;
 }
@@ -447,7 +469,12 @@ body {
 /* SECTION UTAMA */
 .info-section {
     background: #fff;
-    padding: 50px 0;
+    /* padding: 50px 0; */
+    /* max-width: 1200px !important; */
+    width: 100%;
+    max-width: 1200px !important;   /* 🔥 batas di sectionnya */
+    margin: 0 auto;      /* center */
+    padding: 20px 15px; 
 }
 
 .info-wrapper {
