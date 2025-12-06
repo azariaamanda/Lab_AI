@@ -1,7 +1,7 @@
 <?php
 include "koneksi.php";
 
-$query = pg_query($conn, "SELECT * FROM profil_mahasiswa");
+$query = pg_query($conn, "SELECT * FROM profil_mahasiswa  WHERE id_kategori_mhs = 1 ORDER BY id_profil_mhs DESC LIMIT 1");
 
 if (!$query) {
   die("Query gagal: " . pg_last_error($conn));
@@ -13,6 +13,25 @@ if (!$data) {
   die("Data kosong! Tabel profil_mahasiswa belum punya data.");
 }
 $foto_path = !empty($data['foto_3x4']) ? $data['foto_3x4'] : 'img/avatar-default.png';
+
+// Ambil data footer
+$footer_query = pg_query($conn, "SELECT * FROM footer LIMIT 1");
+if (!$footer_query) {
+    die("Query footer gagal: " . pg_last_error($conn));
+}
+
+$footer = pg_fetch_assoc($footer_query);
+
+if (!$footer) {
+    $footer = [
+        'url_logo' => 'img/logo.png',
+        'deskripsi_footer' => '',
+        'jam_kerja' => '',
+        'link_maps' => '',
+        'email' => '',
+        'alamat' => ''
+    ];
+}
 ?>
 
 <!DOCTYPE html>
@@ -213,6 +232,126 @@ $foto_path = !empty($data['foto_3x4']) ? $data['foto_3x4'] : 'img/avatar-default
         line-height: 1.5;
       }
 
+      /* * FOOTER */ 
+        .footer {
+          background: #062247;
+          color: #ffffff;
+          width: 100%;
+          margin-top: 80px;
+          border-radius: 40px 40px 0 0;
+          overflow: hidden;
+        }
+
+        /* GARIS ORANYE ATAS */
+        .footer-top-border {
+          height: 10px;
+          background: #ff8c42;
+          width: 100%;
+        }
+
+        /* GARIS ORANYE BAWAH */
+        .footer-bottom-border {
+          height: 6px;
+          background: #ff8c42;
+          width: 100%;
+        }
+
+        .footer-container {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr 1.4fr;
+          gap: 45px;
+          padding: 50px 60px;
+        }
+
+        .footer-col ul {
+          list-style: none;
+          padding-left: 0;
+        }
+
+        /* BULLET PUTIH CUSTOM */
+        .footer-col ul li {
+          position: relative;
+          padding-left: 14px;
+          margin-bottom: 8px;
+          font-size: 14px;
+        }
+
+        .footer-col ul li::before {
+          content: "";
+          position: absolute;
+          top: 7px;
+          left: 0;
+          width: 6px;
+          height: 6px;
+          background: #ffffff;
+          border-radius: 50%;
+        }
+
+        /* Menu warna putih */
+        .footer-col a {
+          color: #ffffff;
+          text-decoration: none;
+        }
+
+        .footer-col a:hover {
+          color: #ff8c42;
+        }
+
+        /* MAP */
+        .footer-map {
+          width: 360px;
+          height: 210px;
+          border-radius: 6px;
+          overflow: hidden;
+          margin-bottom: 20px;
+        }
+
+        /* KONTAK */
+        .footer-right p {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          margin-bottom: 10px;
+          font-size: 14px;
+          line-height: 1.4;
+        }
+
+        .footer-right p img {
+          width: 20px;
+          height: 20px;
+          margin-top: 3px;
+        }
+
+        /* BOTTOM */
+        .footer-bottom {
+          background: #031526;
+          padding: 12px 0;
+          text-align: center;
+          font-size: 13px;
+          color: #ddd;
+        }
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+          .footer-container {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .footer-container {
+            grid-template-columns: 1fr;
+            padding: 40px 30px;
+          }
+
+          .footer {
+            border-radius: 20px 20px 0 0;
+          }
+
+          .footer-map {
+            height: 150px;
+          }
+        }
+
       @media (max-width: 768px) {
         .profile-card {
           padding: 40px 25px;
@@ -333,21 +472,80 @@ $foto_path = !empty($data['foto_3x4']) ? $data['foto_3x4'] : 'img/avatar-default
             <p><?= $data['email'] ?? '-'; ?></p>
           </div>
 
-          <div class="detail-box">
-            <label>NO TELEPON</label>
-            <p><?= $data['no_telp'] ?? '-'; ?></p>
-          </div>
-
-          <div class="detail-box">
-            <label>DURASI MAGANG</label>
-            <p><?= $data['durasi'] ?? '-'; ?></p>
-          </div>
 
         </div>
 
       </div>
     </main>
 
+<footer class="footer">
+    <div class="footer-top-border"></div>
 
+    <div class="footer-container">
+        <!-- Logo + Deskripsi -->
+        <div class="footer-col footer-logo">
+            <img src="<?= $footer['url_logo'] ?>" alt="Logo" />
+            <p><?= $footer['deskripsi_footer'] ?></p>
+        </div>
+
+        <!-- Menu -->
+        <div class="footer-col">
+            <h4>MENU</h4>
+            <ul>
+                <li><a href="Beranda.php">Beranda</a></li>
+                <li><a href="Produk.php">Produk</a></li>
+                <li><a href="Mitra.php">Mitra</a></li>
+                <li><a href="Berita.php">Berita</a></li>
+                <li><a href="Galeri.php">Galeri</a></li>
+                <li><a href="Layanan.php">Layanan</a></li>
+            </ul>
+        </div>
+
+        <!-- Layanan -->
+        <div class="footer-col">
+            <h4>LAYANAN</h4>
+            <ul>
+                <li>Pendaftaran Asisten Lab</li>
+                <li>Pendaftaran Magang</li>
+                <li>Peminjaman Fasilitas</li>
+            </ul>
+        </div>
+
+        <!-- Jam Kerja -->
+        <div class="footer-col">
+            <h4>JAM KERJA</h4>
+            <ul>
+                <li><?= $footer['jam_kerja'] ?></li>
+            </ul>
+        </div>
+
+        <div class="footer-right">
+            <div class="footer-map">
+                <iframe
+                    src="<?= $footer['link_maps'] ?>"
+                    width="360"
+                    height="200"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+            </div>
+
+            <p><img src="img/footer/email.png" /> <?= $footer['email'] ?></p>
+
+            <p>
+                <img src="img/footer/maps.png" /> <?= nl2br($footer['alamat']) ?>
+            </p>
+        </div>
+    </div>
+
+    <div class="footer-bottom-border"></div>
+
+    <div class="footer-bottom">
+        Copyright © <?= date("Y") ?> Lab Applied Informatics - Politeknik Negeri Malang. All
+        Rights Reserved.
+    </div>
+</footer>
   </body>
 </html>
