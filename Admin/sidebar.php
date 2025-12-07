@@ -1,170 +1,260 @@
-<!-- Sidebar Component -->
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h2>LAB APPLIED INFORMATICS</h2>
-    </div>
-    <ul class="sidebar-menu">
-        <!-- Dashboard -->
-        <li>
-            <a href="dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
-                <i class="fas fa-home"></i>
-                Dashboard
+<?php
+// Ambil data user dari session
+$user_name = $_SESSION['user_name'] ?? 'Admin Lab';
+$user_role = $_SESSION['user_role'] ?? 'Administrator';
+$user_avatar = $_SESSION['user_avatar'] ?? 'https://ui-avatars.com/api/?name=Admin+Lab&background=3182CE&color=fff&size=100';
+$user_id = $_SESSION['user_id'] ?? 1;
+
+require_once '../koneksi.php';
+?>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="logo">
+                <img src="../img/logo/logo putih.png" alt="Lab Dashboard Logo" class="logo-img">
             </a>
-        </li>
-
-        <!-- Konten & Informasi -->
-        <li class="dropdown">
-            <a class="dropdown-toggle">
-                <span>
-                    <i class="fas fa-newspaper"></i>
-                    Konten & Informasi
-                </span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="kelola_berita.php">Kelola Berita</a></li>
-                <li><a href="kelola_kategori_berita.php">Kategori Berita</a></li>
-                <li><a href="kelola_pengumuman.php">Kelola Pengumuman</a></li>
-                <li><a href="kelola_agenda.php">Kelola Agenda</a></li>
-                <li><a href="kelola_kategori_agenda.php">Kategori Agenda</a></li>
-                <li><a href="kelola_galeri.php">Kelola Galeri</a></li>
-                <li><a href="kelola_kategori_galeri.php">Kategori Galeri</a></li>
-                <li><a href="kelola_jenis_galeri.php">Jenis Galeri</a></li>
-            </ul>
-        </li>
-
-        <!-- Profil Laboratorium -->
-        <li class="dropdown">
-            <a class="dropdown-toggle">
-                <span>
-                    <i class="fas fa-flask"></i>
-                    Profil Laboratorium
-                </span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="kelola_profil_lab.php">Profil Lab</a></li>
-                <li><a href="kelola_research_framework.php">Research Framework</a></li>
-                <li><a href="kelola_fasilitas.php">Kelola Fasilitas</a></li>
-            </ul>
-        </li>
-
-        <!-- Anggota -->
-        <li class="dropdown">
-            <a class="dropdown-toggle">
-                <span>
-                    <i class="fas fa-users"></i>
-                    Anggota
-                </span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="kelola_dosen.php">Profil Dosen</a></li>
-                <li><a href="kelola_posisi_dosen.php">Posisi Dosen</a></li>
-                <li><a href="kelola_mahasiswa.php">Profil Mahasiswa</a></li>
-                <li><a href="kelola_kategori_mahasiswa.php">Kategori Mahasiswa</a></li>
-            </ul>
-        </li>
-
-        <!-- Mitra & Produk -->
-        <li class="dropdown">
-            <a class="dropdown-toggle">
-                <span>
-                    <i class="fas fa-handshake"></i>
-                    Mitra & Produk
-                </span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="kelola_mitra.php">Kelola Mitra</a></li>
-                <li><a href="kelola_kategori_mitra.php">Kategori Mitra</a></li>
-                <li><a href="kelola_produk.php">Kelola Produk</a></li>
-                <li><a href="kelola_video_produk.php">Video Produk</a></li>
-            </ul>
-        </li>
-
-        <!-- Layanan & Pendaftaran -->
-        <li class="dropdown">
-            <a class="dropdown-toggle">
-                <span>
-                    <i class="fas fa-clipboard-list"></i>
-                    Layanan & Pendaftaran
-                </span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="kelola_layanan.php">Kelola Layanan</a></li>
-                <li><a href="kelola_pendaftaran.php">Pendaftaran</a></li>
-                <li><a href="kelola_peminjaman.php">Peminjaman Fasilitas</a></li>
-            </ul>
-        </li>
-
-        <!-- Pengaturan Website -->
-        <li class="dropdown">
-            <a class="dropdown-toggle">
-                <span>
-                    <i class="fas fa-cog"></i>
-                    Pengaturan Website
-                </span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="kelola_navbar.php">Kelola Navbar</a></li>
-                <li><a href="kelola_nav_banner.php">Nav Banner</a></li>
-                <li><a href="kelola_footer.php">Kelola Footer</a></li>
-            </ul>
-        </li>
-
-        <!-- Logout -->
-        <li>
-            <a href="logout.php">
-                <i class="fas fa-sign-out-alt"></i>
-                Logout
-            </a>
-        </li>
-    </ul>
-</div>
-
-<script>
-    // Dropdown toggle functionality - HANYA JALAN 1X
-    (function() {
-        // Cek apakah sudah di-initialize
-        if (window.sidebarInitialized) return;
-        window.sidebarInitialized = true;
-
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const dropdown = this.parentElement;
-                const isActive = dropdown.classList.contains('active');
-                
-                // Close all dropdowns
-                document.querySelectorAll('.dropdown').forEach(d => {
-                    d.classList.remove('active');
-                });
-                
-                // Toggle current dropdown
-                if (!isActive) {
-                    dropdown.classList.add('active');
-                }
-            });
-        });
-
-        // Auto-expand dropdown and set active link based on current page
-        const currentPath = window.location.pathname.split('/').pop();
+            <button class="toggle-btn" id="toggleSidebar">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
         
-        // Check submenu items
-        document.querySelectorAll('.dropdown-menu a').forEach(link => {
-            if (link.getAttribute('href') === currentPath) {
-                link.classList.add('active');
-                link.closest('.dropdown').classList.add('active');
-            }
-        });
-        
-        // Check main menu items
-        document.querySelectorAll('.sidebar-menu > li > a:not(.dropdown-toggle)').forEach(link => {
-            if (link.getAttribute('href') === currentPath) {
-                link.classList.add('active');
-            }
-        });
-    })();
-</script>
+        <ul class="nav-menu">
+            <!-- Dashboard -->
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            
+            <!-- KONTEN WEBSITE SECTION -->
+            <li class="section-header">
+                <i class="fas fa-globe section-icon"></i>
+                <span class="section-text">Konten Website</span>
+            </li>
+            
+            <!-- Beranda -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span class="nav-text">Beranda</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="kelola_navbar.php" class="nav-link"><span class="nav-text">Navbar</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Nav Banner</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Footer</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Admin</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- Profil Lab -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-building nav-icon"></i>
+                    <span class="nav-text">Profil Lab</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Visi</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Misi</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Deskripsi</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Fasilitas</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- Research Framework -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-flask nav-icon"></i>
+                    <span class="nav-text">Research Framework</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Scope</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Research Topic</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Blueprint</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- MANAJEMEN ANGGOTA SECTION -->
+            <li class="section-header">
+                <i class="fas fa-users section-icon"></i>
+                <span class="section-text">Manajemen Anggota</span>
+            </li>
+            
+            <!-- Dosen -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                    <span class="nav-text">Dosen</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Data Dosen</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Pendidikan</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Sertifikasi</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Publikasi</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Sosial Media</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- Mahasiswa -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user-graduate nav-icon"></i>
+                    <span class="nav-text">Mahasiswa</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Profil Mahasiswa</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kategori Mahasiswa</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- MITRA & PRODUK SECTION -->
+            <li class="section-header">
+                <i class="fas fa-microscope section-icon"></i>
+                <span class="section-text">Mitra & Produk</span>
+            </li>
+            
+            <!-- Mitra -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-handshake nav-icon"></i>
+                    <span class="nav-text">Mitra</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kategori Mitra</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kelola Mitra</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- Produk -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-box nav-icon"></i>
+                    <span class="nav-text">Produk</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kelola Produk</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Video Produk</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- PUBLIKASI SECTION -->
+            <li class="section-header">
+                <i class="fas fa-bullhorn section-icon"></i>
+                <span class="section-text">Publikasi</span>
+            </li>
+            
+            <!-- Berita -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-newspaper nav-icon"></i>
+                    <span class="nav-text">Berita</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kategori Berita</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kelola Berita</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- Agenda -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-calendar nav-icon"></i>
+                    <span class="nav-text">Agenda</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kategori Agenda</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kelola Agenda</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- Pengumuman -->
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-bullhorn nav-icon"></i>
+                    <span class="nav-text">Pengumuman</span>
+                </a>
+            </li>
+            
+            <!-- Galeri -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-images nav-icon"></i>
+                    <span class="nav-text">Galeri</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Jenis Galeri</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kategori Galeri</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kelola Galeri</span></a></li>
+                </ul>
+            </li>
+            
+            <!-- LAYANAN SECTION -->
+            <li class="section-header">
+                <i class="fas fa-tools section-icon"></i>
+                <span class="section-text">Layanan</span>
+            </li>
+            
+            <!-- Layanan -->
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cogs nav-icon"></i>
+                    <span class="nav-text">Layanan</span>
+                </a>
+                <ul class="submenu">
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Kelola Layanan</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Pendaftaran Asisten Lab</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Pendaftaran Magang</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Peminjaman Fasilitas</span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cari...">
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <!-- <button class="search-btn-mobile">
+                    <i class="fas fa-search"></i>
+                </button> -->
+                
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                </button>
+
+                <div class="user-profile" id="userProfile">
+                    <div class="user-info">
+                        <span class="user-name"><?php echo htmlspecialchars($user_name); ?></span>
+                        <span class="user-role"><?php echo htmlspecialchars($user_role); ?></span>
+                    </div>
+                    <img src="<?php echo htmlspecialchars($user_avatar); ?>"
+                        alt="Foto Profil"
+                        class="user-avatar">
+                </div>
+            </div>
+            
+            <!-- Dropdown Menu -->
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil Saya</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Keluar</span>
+                </a>
+            </div>
+        </header>
