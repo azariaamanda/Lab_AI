@@ -1,10 +1,5 @@
 <?php
-// session_start();
-// if (!isset($_SESSION['username'])) {
-//     header("Location: login.php");
-//     exit;
-// }
-
+session_start();
 require_once '../koneksi.php';
 
 $message = '';
@@ -12,30 +7,24 @@ $message_type = '';
 
 // Proses form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama_navbar = pg_escape_string($conn, $_POST['nama_navbar']);
-    $url_nav = pg_escape_string($conn, $_POST['url_nav']);
+    $nama_navbar = $_POST['nama_navbar'] ?? '';
+    $url_nav = $_POST['url_nav'] ?? '';
     
     // Validasi
     if (empty($nama_navbar) || empty($url_nav)) {
         $message = 'Nama menu dan URL harus diisi';
         $message_type = 'error';
     } else {
-        try {
-            // Panggil stored procedure
-            $query = "CALL sp_insert_navbar('$nama_navbar', '$url_nav')";
-            $result = pg_query($conn, $query);
-            
-            if ($result) {
-                $_SESSION['message'] = 'Menu navbar berhasil ditambahkan';
-                $_SESSION['message_type'] = 'success';
-                header('Location: kelola_navbar.php');
-                exit;
-            } else {
-                $message = 'Gagal menambahkan menu: ' . pg_last_error($conn);
-                $message_type = 'error';
-            }
-        } catch (Exception $e) {
-            $message = 'Error: ' . $e->getMessage();
+        $query = "INSERT INTO navbar (nama_navbar, url_nav) VALUES ($1, $2)";
+        $result = pg_query_params($conn, $query, [$nama_navbar, $url_nav]);
+        
+        if ($result) {
+            $_SESSION['message'] = 'Menu navbar berhasil ditambahkan';
+            $_SESSION['message_type'] = 'success';
+            header('Location: kelola_navbar.php');
+            exit;
+        } else {
+            $message = 'Gagal menambahkan menu: ' . pg_last_error($conn);
             $message_type = 'error';
         }
     }

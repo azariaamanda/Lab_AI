@@ -5,29 +5,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ============ SIDEBAR TOGGLE ============
     const toggleBtn = document.getElementById('toggleSidebar');
-    const sidebar = document.querySelector('.sidebar');
+    const sidebar = document.getElementById('sidebar');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainContent = document.querySelector('.main-content');
     
-    // Desktop sidebar toggle (collapse/expand)
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            const icon = this.querySelector('i');
-            if (sidebar.classList.contains('collapsed')) {
-                icon.className = 'fas fa-chevron-right';
-            } else {
-                icon.className = 'fas fa-chevron-left';
-            }
-        });
+    // Fungsi untuk toggle sidebar dan simpan state
+    const handleSidebarToggle = () => {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+        
+        const icon = toggleBtn.querySelector('i');
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        
+        // Simpan state ke localStorage
+        localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+        
+        // Ubah ikon
+        icon.className = isCollapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left';
+    };
+
+    // Cek dan terapkan state dari localStorage saat halaman dimuat
+    if (localStorage.getItem('sidebarState') === 'collapsed') {
+        sidebar.classList.add('collapsed');
+        mainContent.classList.add('expanded');
+        if (toggleBtn) {
+            toggleBtn.querySelector('i').className = 'fas fa-chevron-right';
+        }
     }
+
+    // Event listener untuk tombol toggle
+    if (toggleBtn) toggleBtn.addEventListener('click', handleSidebarToggle);
     
     // Mobile menu toggle
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            sidebar.classList.toggle('show');
-        });
-    }
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('show');
+    });
     
     // ============ SUBMENU TOGGLE ============
     const hasSubmenuItems = document.querySelectorAll('.has-submenu > .nav-link');
@@ -45,25 +58,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const submenu = this.nextElementSibling;
             
             // Toggle submenu
-            if (submenu && submenu.classList.contains('submenu')) {
-                const isCurrentlyOpen = parent.classList.contains('open');
-                
-                // Tutup SEMUA submenu (baik level utama maupun nested)
-                const allSubmenuParents = document.querySelectorAll('.has-submenu');
-                allSubmenuParents.forEach(menuItem => {
-                    menuItem.classList.remove('open');
-                    const menuSubmenu = menuItem.querySelector('.submenu');
-                    if (menuSubmenu) {
-                        menuSubmenu.classList.remove('show');
-                    }
-                });
-                
-                // Jika menu tidak sedang terbuka, buka menu yang diklik
-                if (!isCurrentlyOpen) {
-                    parent.classList.add('open');
-                    submenu.classList.add('show');
-                }
-            }
+            const isCurrentlyOpen = parent.classList.contains('open');
+
+
+            // Buka atau tutup submenu yang diklik
+            parent.classList.toggle('open', !isCurrentlyOpen);
+            submenu.classList.toggle('show', !isCurrentlyOpen);
+
         });
     });
     
@@ -85,24 +86,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (submenu && submenu.classList.contains('submenu')) {
                 const isCurrentlyOpen = parent.classList.contains('open');
                 
-                // Tutup semua nested submenu di parent yang sama
-                const parentSubmenu = parent.closest('.submenu');
-                if (parentSubmenu) {
-                    const nestedItems = parentSubmenu.querySelectorAll('.has-submenu');
-                    nestedItems.forEach(nestedItem => {
-                        nestedItem.classList.remove('open');
-                        const nestedSubmenu = nestedItem.querySelector('.submenu');
-                        if (nestedSubmenu) {
-                            nestedSubmenu.classList.remove('show');
-                        }
-                    });
-                }
-                
-                // Buka yang diklik jika sebelumnya tertutup
-                if (!isCurrentlyOpen) {
-                    parent.classList.add('open');
-                    submenu.classList.add('show');
-                }
+                // Buka atau tutup submenu yang diklik
+                parent.classList.toggle('open', !isCurrentlyOpen);
+                submenu.classList.toggle('show', !isCurrentlyOpen);
             }
         });
     });
@@ -174,18 +160,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ============ ACTIVE MENU HIGHLIGHT ============
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Hanya untuk link yang bukan parent submenu
-            if (!this.parentElement.classList.contains('has-submenu')) {
-                // Hapus active dari semua link
-                navLinks.forEach(l => l.classList.remove('active'));
-                // Tambahkan active ke link yang diklik
-                this.classList.add('active');
-            }
+    const setActiveMenu = () => {
+        const currentUrl = window.location.href.split('?')[0].split('#')[0];
+        const allNavLinks = document.querySelectorAll('.sidebar .nav-link');
+
+        allNavLinks.forEach(link => {
+            link.classList.remove('active');
         });
-    });
+
+        for (const link of allNavLinks) {
+             const linkUrl = link.href.split('?')[0].split('#')[0];
+             if (linkUrl === currentUrl) {
+                link.classList.add('active');
+
+                // Buka parent submenu dari link yang aktif
+                let parent = link.closest('.has-submenu');
+                while (parent) {
+                    parent.classList.add('open');
+                    const submenu = parent.querySelector('.submenu');
+                    if (submenu) submenu.classList.add('show');
+                    // Naik ke parent berikutnya jika ada nested submenu
+                    parent = parent.parentElement.closest('.has-submenu');
+                }
+                break; // Hentikan loop setelah link aktif ditemukan
+            }
+        }
+    };
     
     // ============ SEARCH FUNCTIONALITY ============
     const searchInput = document.querySelector('.search-input');
@@ -425,5 +425,8 @@ document.addEventListener('DOMContentLoaded', function() {
         showToast('Selamat datang di Dashboard Laboratorium!', 'success');
     }, 1000);
     
+    // Panggil fungsi untuk menandai menu aktif saat halaman dimuat
+    setActiveMenu();
+
     console.log('Sidebar & Dashboard JavaScript initialized successfully!');
 });

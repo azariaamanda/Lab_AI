@@ -3,10 +3,6 @@
 include 'koneksi.php';
 
 
-// Ambil data navbar
-$nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-$nav_result = pg_query($conn, $nav_query);
-
 // Ambil data fasilitas
 $fasilitas_query = "SELECT * FROM vw_fasilitas ORDER BY id_fasilitas";
 $fasilitas_result = pg_query($conn, $fasilitas_query);
@@ -35,6 +31,11 @@ $fasilitas_result = pg_query($conn, $fasilitas_query);
         <link rel="stylesheet" href="css/styleFooter.css">
     </head>
     <body>
+        <?php
+            // Sertakan Navbar di sini
+            include 'Navbar.php';
+            pg_result_seek($nav_result, 0);
+        ?>
         <!-- HEADER & NAVBAR -->
         <header class="header-section">
             <!-- Background SVG -->

@@ -2,10 +2,6 @@
 require 'koneksi.php';
 include 'Navbar.php';
 
-// Query navbar
-$nav_query  = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-$nav_result = pg_query($conn, $nav_query);
-
 // Query produk
 $query  = "SELECT * FROM produk ORDER BY id_produk ASC";
 $result = pg_query($conn, $query);
@@ -24,38 +20,6 @@ $result = pg_query($conn, $query);
 </head>
 
 <body>
-
-<header class="header-section">
-  <div class="header-bg">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-      <rect width="1440" height="90" fill="#0A2346" fill-opacity="0.8"/>
-      <path opacity="0.9" d="M0 0H1440C1440 41.4214 1406.42 75 1365 75H75C33.5786 75 0 41.4214 0 0Z" fill="white"/>
-    </svg>
-  </div>
-
-  <div class="container">
-    <div class="header-content">
-      <div class="logo-section">
-        <img src="img/logo/logo.png" alt="Lab AI Logo" class="logo">
-      </div>
-      <nav class="navbar-section">
-        <ul class="nav-menu">
-          <?php while($nav = pg_fetch_assoc($nav_result)): ?>
-            <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) === basename($nav['url_nav'])) ? 'active' : '' ?>">
-              <a href="<?= htmlspecialchars($nav['url_nav']); ?>" class="nav-link">
-                <?= htmlspecialchars($nav['nama_navbar']); ?>
-              </a>
-            </li>
-          <?php endwhile; ?>
-        </ul>
-      </nav>
-
-      <div class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
-    </div>
-  </div>
-</header>
 
 
 <!-- HEADER PRODUK -->

@@ -1,10 +1,6 @@
 <?php
     require 'koneksi.php';
 
-    // Ambil data navbar
-    $nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-    $nav_result = pg_query($conn, $nav_query);
-
     // Ambil data nav banner
     $banner_query = "SELECT * FROM vw_nav_banner ORDER BY id_navBanner";
     $banner_result = pg_query($conn, $banner_query);
@@ -77,6 +73,11 @@
 
     </head>
     <body>
+        <?php
+            // Sertakan Navbar di sini
+            include 'Navbar.php';
+            pg_result_seek($nav_result, 0);
+        ?>
         <!-- HEADER & NAVBAR -->
         <header class="header-section">
             <!-- Background SVG -->

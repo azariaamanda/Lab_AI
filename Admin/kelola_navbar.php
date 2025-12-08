@@ -1,28 +1,26 @@
 <?php
-// session_start();
-// if (!isset($_SESSION['username'])) {
-//     header("Location: login.php");
-//     exit;
-// }
+session_start();
+if (!isset($_SESSION['user_name'])) {
+    // Jika ingin mengaktifkan autentikasi, hapus komentar di bawah
+    // header("Location: login.php");
+    // exit;
+}
 
 require_once '../koneksi.php';
 
-// Ambil data navbar
-$query = "SELECT * FROM navbar ORDER BY id_navbar ASC";
+// Ambil data navbar dari view yang benar
+$query = "SELECT id_navbar, nama_navbar, url_nav FROM vw_navbar ORDER BY id_navbar ASC";
 $result = pg_query($conn, $query);
 
 $navbar_items = array();
 if ($result && pg_num_rows($result) > 0) {
-    while ($row = pg_fetch_assoc($result)) {
-        $navbar_items[] = $row;
-    }
+    $navbar_items = pg_fetch_all($result);
 }
 
 // Cek apakah ada pesan dari operasi sebelumnya
-$message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
-$message_type = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : '';
-unset($_SESSION['message']);
-unset($_SESSION['message_type']);
+$message = $_SESSION['message'] ?? '';
+$message_type = $_SESSION['message_type'] ?? '';
+unset($_SESSION['message'], $_SESSION['message_type']);
 ?>
 
 <!DOCTYPE html>
@@ -178,77 +176,45 @@ unset($_SESSION['message_type']);
     </div>
     <script src="js/dashboardJS.js"></script>
     
-    <!-- JavaScript
-    <script src="../assets/js/script.js"></script>
     <script>
-        // Script khusus untuk halaman navbar
         document.addEventListener('DOMContentLoaded', function() {
-            // Pencarian
+            // Fungsionalitas Pencarian
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 searchInput.addEventListener('keyup', function() {
-                    const searchTerm = this.value.toLowerCase();
-                    const rows = document.querySelectorAll('#navbarTable tbody tr:not(.empty-state-row)');
-                    
+                    const filter = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#navbarTable tbody tr');
                     rows.forEach(row => {
+                        if (row.classList.contains('empty-state-row')) return;
                         const text = row.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
+                        row.style.display = text.includes(filter) ? '' : 'none';
                     });
-                    
-                    // Update count
-                    updateTableCount();
                 });
             }
-            
-            // Update table count
-            function updateTableCount() {
-                const visibleRows = document.querySelectorAll('#navbarTable tbody tr:not(.empty-state-row)[style!="display: none;"]');
-                const count = visibleRows.length;
-                const tableInfo = document.querySelector('.table-info');
-                if (tableInfo) {
-                    tableInfo.innerHTML = `Total: <strong>${count}</strong> menu`;
-                }
-            }
-            
-            // Delete modal
+
+            // Fungsionalitas Modal Hapus
             const deleteModal = document.getElementById('deleteModal');
-            const deleteButtons = document.querySelectorAll('.btn-delete');
-            const deleteItemName = document.getElementById('deleteItemName');
-            const confirmDelete = document.getElementById('confirmDelete');
-            const cancelDelete = document.querySelector('.cancel-delete');
-            
-            deleteButtons.forEach(button => {
+            document.querySelectorAll('.btn-delete').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = this.dataset.id;
                     const name = this.dataset.name;
-                    
-                    deleteItemName.textContent = name;
-                    confirmDelete.href = `navbar_hapus.php?id=${id}`;
+                    document.getElementById('deleteItemName').textContent = name;
+                    document.getElementById('confirmDelete').href = `hapus_navbar.php?id=${id}`;
                     deleteModal.style.display = 'flex';
                 });
             });
-            
-            // Close modal
-            const modalClose = deleteModal.querySelector('.modal-close');
-            modalClose.addEventListener('click', function() {
-                deleteModal.style.display = 'none';
-            });
-            
-            cancelDelete.addEventListener('click', function() {
-                deleteModal.style.display = 'none';
-            });
-            
-            // Close modal when clicking outside
-            deleteModal.addEventListener('click', function(e) {
-                if (e.target === deleteModal) {
-                    deleteModal.style.display = 'none';
-                }
+
+            // Logika untuk menutup modal
+            const closeModal = () => {
+                if (deleteModal) deleteModal.style.display = 'none';
+            };
+
+            deleteModal.querySelector('.modal-close').addEventListener('click', closeModal);
+            deleteModal.querySelector('.cancel-delete').addEventListener('click', closeModal);
+            deleteModal.addEventListener('click', (e) => {
+                if (e.target === deleteModal) closeModal();
             });
         });
-    </script> -->
+    </script>
 </body>
 </html>

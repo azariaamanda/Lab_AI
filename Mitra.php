@@ -2,14 +2,8 @@
     require 'koneksi.php';
     include 'Navbar.php';
 
-    $nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-    $nav_result = pg_query($conn, $nav_query);
-
     $q = "SELECT * FROM vw_mitra ORDER BY nama_kategori, nama_mitra";
     $r = pg_query($conn, $q);
-
-    $nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-    $nav_result = pg_query($conn, $nav_query);
 
 
     $mitra = [

@@ -1,11 +1,10 @@
 <?php
 // navbar_edit.php - Form edit navbar
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit;
-}
-
+// if (!isset($_SESSION['username'])) {
+//     header("Location: login.php");
+//     exit;
+// }
 require_once '../koneksi.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -15,20 +14,20 @@ $message_type = '';
 // Ambil data navbar berdasarkan ID
 $navbar = null;
 if ($id > 0) {
-    $query = "SELECT * FROM navbar WHERE id_navbar = $id";
-    $result = pg_query($conn, $query);
+    $query_select = "SELECT * FROM navbar WHERE id_navbar = $1";
+    $result = pg_query_params($conn, $query_select, [$id]);
     if ($result && pg_num_rows($result) > 0) {
         $navbar = pg_fetch_assoc($result);
     } else {
         $_SESSION['message'] = 'Menu navbar tidak ditemukan';
         $_SESSION['message_type'] = 'error';
-        header('Location: navbar.php');
+        header('Location: kelola_navbar.php');
         exit;
     }
 } else {
     $_SESSION['message'] = 'ID menu tidak valid';
     $_SESSION['message_type'] = 'error';
-    header('Location: navbar.php');
+    header('Location: kelola_navbar.php');
     exit;
 }
 
@@ -42,22 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Nama menu dan URL harus diisi';
         $message_type = 'error';
     } else {
-        try {
-            // Panggil stored procedure update
-            $query = "CALL sp_update_navbar($id, '$nama_navbar', '$url_nav')";
-            $result = pg_query($conn, $query);
-            
-            if ($result) {
-                $_SESSION['message'] = 'Menu navbar berhasil diperbarui';
-                $_SESSION['message_type'] = 'success';
-                header('Location: navbar.php');
-                exit;
-            } else {
-                $message = 'Gagal memperbarui menu: ' . pg_last_error($conn);
-                $message_type = 'error';
-            }
-        } catch (Exception $e) {
-            $message = 'Error: ' . $e->getMessage();
+        $query_update = "UPDATE navbar SET nama_navbar = $1, url_nav = $2 WHERE id_navbar = $3";
+        $result_update = pg_query_params($conn, $query_update, [$nama_navbar, $url_nav, $id]);
+        
+        if ($result_update) {
+            $_SESSION['message'] = 'Menu navbar berhasil diperbarui';
+            $_SESSION['message_type'] = 'success';
+            header('Location: kelola_navbar.php');
+            exit;
+        } else {
+            $message = 'Gagal memperbarui menu: ' . pg_last_error($conn);
             $message_type = 'error';
         }
     }
@@ -78,16 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/form.css">
+    <link rel="stylesheet" href="css/styleDashboard.css">
+    <link rel="stylesheet" href="css/form.css">
 </head>
 <body>
     <!-- Include Sidebar -->
-    <?php include '../includes/sidebar.php'; ?>
+    <?php include 'sidebar.php'; ?>
     
-    <main class="main-content">
-        <!-- Include Header -->
-        <?php include '../includes/header.php'; ?>
+    <div class="main-content">
+        <?php include 'header.php'; ?>
         
         <div class="dashboard-content">
             <!-- Header dengan judul -->
@@ -97,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="page-subtitle">Edit menu: <?php echo htmlspecialchars($navbar['nama_navbar']); ?></p>
                 </div>
                 <div class="header-right">
-                    <a href="navbar.php" class="btn btn-outline">
+                    <a href="kelola_navbar.php" class="btn btn-outline">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                 </div>
@@ -184,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <!-- Form actions -->
                     <div class="form-actions">
-                        <a href="navbar.php" class="btn btn-outline">
+                        <a href="kelola_navbar.php" class="btn btn-outline">
                             <i class="fas fa-times"></i> Batal
                         </a>
                         <button type="submit" class="btn btn-primary">
@@ -194,10 +186,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
             </div>
         </div>
-    </main>
+    </div>
     
-    <!-- JavaScript
-    <script src="../assets/js/script.js"></script>
+    <script src="js/dashboardJS.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Preview
@@ -214,6 +205,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 previewUrl.textContent = this.value;
             });
         });
-    </script> -->
+    </script>
 </body>
 </html>

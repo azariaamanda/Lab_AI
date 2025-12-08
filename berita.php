@@ -4,10 +4,6 @@ require 'koneksi.php';
 // Ambil filter kategori
 $selected_kategori = isset($_GET['kategori']) ? $_GET['kategori'] : 'Semua';
 
-// Ambil data navbar
-$nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-$nav_result = pg_query($conn, $nav_query);
-
 // Ambil kategori
 $kategori_query = "SELECT DISTINCT nama_kategori_berita FROM vw_berita ORDER BY nama_kategori_berita";
 $kategori_result = pg_query($conn, $kategori_query);
@@ -16,13 +12,11 @@ $kategori_result = pg_query($conn, $kategori_query);
 if ($selected_kategori == 'Semua') {
     $berita_query = "SELECT * FROM vw_berita ORDER BY tanggal_berita DESC";
 } else {
-    $berita_query = "SELECT * FROM vw_berita WHERE nama_kategori_berita = '$selected_kategori' ORDER BY tanggal_berita DESC";
+    // Menggunakan pg_query_params untuk mencegah SQL Injection
+    $berita_query = pg_query_params($conn, "SELECT * FROM vw_berita WHERE nama_kategori_berita = $1 ORDER BY tanggal_berita DESC", array($selected_kategori));
 }
 
 $berita_result = pg_query($conn, $berita_query);
-
-// Reset pointer untuk navbar
-pg_result_seek($nav_result, 0);
 
 // Simpan kategori dalam array
 $categories = array();
@@ -63,6 +57,12 @@ $agenda_result = pg_query($conn, $agenda_query);
         <link rel="stylesheet" href="css/styleFooter.css">
     </head>
     <body>
+        <?php
+            // Sertakan Navbar di sini agar variabel $nav_result tersedia
+            include 'Navbar.php';
+            // Reset pointer setelah digunakan di Navbar.php jika perlu
+            pg_result_seek($nav_result, 0);
+        ?>
         <!-- HEADER & NAVBAR -->
         <header class="header-section">
             <!-- Background SVG -->

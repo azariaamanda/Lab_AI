@@ -2,9 +2,6 @@
 require 'koneksi.php';
 include 'Navbar.php';
 
-$nav_query = "SELECT * FROM vw_navbar ORDER BY id_navbar";
-$nav_result = pg_query($conn, $nav_query);
-
 $layanan_query = "SELECT * FROM vw_layanan ORDER BY id_layanan";
 $layanan_result = pg_query($conn, $layanan_query);
 ?>

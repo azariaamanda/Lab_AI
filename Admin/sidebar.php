@@ -41,9 +41,9 @@ require_once '../koneksi.php';
                 </a>
                 <ul class="submenu">
                     <li class="nav-item"><a href="kelola_navbar.php" class="nav-link"><span class="nav-text">Navbar</span></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Nav Banner</span></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Footer</span></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Admin</span></a></li>
+                    <li class="nav-item"><a href="kelola_nav_banner.php" class="nav-link"><span class="nav-text">Nav Banner</span></a></li>
+                    <li class="nav-item"><a href="kelola_footer.php" class="nav-link"><span class="nav-text">Footer</span></a></li>
+                    <li class="nav-item"><a href="kelola_admin.php" class="nav-link"><span class="nav-text">Admin</span></a></li>
                 </ul>
             </li>
             
@@ -54,10 +54,10 @@ require_once '../koneksi.php';
                     <span class="nav-text">Profil Lab</span>
                 </a>
                 <ul class="submenu">
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Visi</span></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Misi</span></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Deskripsi</span></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><span class="nav-text">Fasilitas</span></a></li>
+                    <li class="nav-item"><a href="kelola_visi.php" class="nav-link"><span class="nav-text">Visi</span></a></li>
+                    <li class="nav-item"><a href="kelola_misi.php" class="nav-link"><span class="nav-text">Misi</span></a></li>
+                    <li class="nav-item"><a href="kelola_deskripsi.php" class="nav-link"><span class="nav-text">Deskripsi</span></a></li>
+                    <li class="nav-item"><a href="kelola_fasilitas.php" class="nav-link"><span class="nav-text">Fasilitas</span></a></li>
                 </ul>
             </li>
             
@@ -209,52 +209,3 @@ require_once '../koneksi.php';
             </li>
         </ul>
     </aside>
-    
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Top Header -->
-        <header class="top-header">
-            <div class="header-left">
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Cari...">
-                </div>
-            </div>
-            
-            <div class="header-right">
-                <!-- <button class="search-btn-mobile">
-                    <i class="fas fa-search"></i>
-                </button> -->
-                
-                <button class="notification-btn" id="notificationBtn">
-                    <i class="fas fa-bell"></i>
-                </button>
-
-                <div class="user-profile" id="userProfile">
-                    <div class="user-info">
-                        <span class="user-name"><?php echo htmlspecialchars($user_name); ?></span>
-                        <span class="user-role"><?php echo htmlspecialchars($user_role); ?></span>
-                    </div>
-                    <img src="<?php echo htmlspecialchars($user_avatar); ?>"
-                        alt="Foto Profil"
-                        class="user-avatar">
-                </div>
-            </div>
-            
-            <!-- Dropdown Menu -->
-            <div class="dropdown-menu" id="dropdownMenu">
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-user"></i>
-                    <span>Profil Saya</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Keluar</span>
-                </a>
-            </div>
-        </header>
