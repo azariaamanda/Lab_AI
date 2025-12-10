@@ -73,6 +73,7 @@ $related_result = pg_query($conn, $related_query);
                     <?php endwhile; ?>
                 </ul>
             </nav>
+            <?php include 'ProfileRing.php'; ?>
             
             <div class="mobile-menu-toggle">
                 <i class="fas fa-bars"></i>

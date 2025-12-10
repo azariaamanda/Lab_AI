@@ -8,7 +8,7 @@ session_start();
 require_once '../koneksi.php';
 
 // Ambil semua data admin
-$query = "SELECT id_admin, nama_lengkap, email, role, avatar FROM admin ORDER BY id_admin ASC";
+$query = "SELECT id_admin, nama_lengkap, email, role, avatar FROM admin_user ORDER BY id_admin ASC";
 $result = pg_query($conn, $query);
 
 $admin_list = [];
@@ -103,14 +103,14 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                                 <td class="text-center"><?php echo $no++; ?></td>
                                 <td>
                                     <div class="user-profile-cell">
-                                        <img src="<?php echo htmlspecialchars($admin['avatar'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($admin['nama_lengkap'])); ?>" alt="Avatar" class="avatar">
-                                        <span class="user-name-cell"><?php echo htmlspecialchars($admin['nama_lengkap']); ?></span>
+                                        <img src="<?php echo htmlspecialchars($admin['avatar'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($admin['nama_lengkap'] ?? 'Admin')); ?>" alt="Avatar" class="avatar">
+                                        <span class="user-name-cell"><?php echo htmlspecialchars($admin['nama_lengkap'] ?? ''); ?></span>
                                     </div>
                                 </td>
-                                <td><?php echo htmlspecialchars($admin['email']); ?></td>
+                                <td><?php echo htmlspecialchars($admin['email'] ?? ''); ?></td>
                                 <td>
-                                    <span class="role-badge role-<?php echo strtolower(htmlspecialchars($admin['role'])); ?>">
-                                        <?php echo htmlspecialchars($admin['role']); ?>
+                                    <span class="role-badge role-<?php echo strtolower(htmlspecialchars($admin['role'] ?? '')); ?>">
+                                        <?php echo htmlspecialchars($admin['role'] ?? ''); ?>
                                     </span>
                                 </td>
                                 <td class="action-buttons">

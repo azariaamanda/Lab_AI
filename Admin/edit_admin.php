@@ -5,7 +5,7 @@ require_once '../koneksi.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // Ambil data admin yang akan diedit
-$query_select = "SELECT * FROM admin WHERE id_admin = $1";
+$query_select = "SELECT * FROM admin_user WHERE id_admin = $1";
 $result_select = pg_query_params($conn, $query_select, [$id]);
 $admin = pg_fetch_assoc($result_select);
 
@@ -31,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Cek apakah password diisi
         if (!empty($password)) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $query_update = "UPDATE admin SET nama_lengkap = $1, username = $2, email = $3, role = $4, password = $5 WHERE id_admin = $6";
+            $query_update = "UPDATE admin_user SET nama_lengkap = $1, username = $2, email = $3, role = $4, password = $5 WHERE id_admin = $6";
             array_push($params, $hashed_password, $id);
         } else {
-            $query_update = "UPDATE admin SET nama_lengkap = $1, username = $2, email = $3, role = $4 WHERE id_admin = $5";
+            $query_update = "UPDATE admin_user SET nama_lengkap = $1, username = $2, email = $3, role = $4 WHERE id_admin = $5";
             array_push($params, $id);
         }
 

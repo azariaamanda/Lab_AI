@@ -1,23 +1,22 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_name'])) {
-    // Jika ingin mengaktifkan autentikasi, hapus komentar di bawah
-    // header("Location: login.php");
-    // exit;
-}
+// if (!isset($_SESSION['username'])) {
+//     header("Location: login.php");
+//     exit;
+// }
 
 require_once '../koneksi.php';
 
-// Ambil data navbar dari view yang benar
-$query = "SELECT id_navbar, nama_navbar, url_nav FROM vw_navbar ORDER BY id_navbar ASC";
+// Ambil semua data navbar
+$query = "SELECT * FROM navbar ORDER BY id_navbar ASC";
 $result = pg_query($conn, $query);
 
-$navbar_items = array();
+$navbar_list = [];
 if ($result && pg_num_rows($result) > 0) {
-    $navbar_items = pg_fetch_all($result);
+    $navbar_list = pg_fetch_all($result);
 }
 
-// Cek apakah ada pesan dari operasi sebelumnya
+// Cek pesan dari operasi sebelumnya
 $message = $_SESSION['message'] ?? '';
 $message_type = $_SESSION['message_type'] ?? '';
 unset($_SESSION['message'], $_SESSION['message_type']);
@@ -37,22 +36,19 @@ unset($_SESSION['message'], $_SESSION['message_type']);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="../assets/css/styles.css"> -->
-    <link rel="stylesheet" href="css/tabel.css">
     <link rel="stylesheet" href="css/styleDashboard.css">
+    <link rel="stylesheet" href="css/tabel.css">
 </head>
 <body>
-    <!-- Include Sidebar -->
     <?php include 'sidebar.php'; ?>
     
     <main class="main-content">
-        
         <div class="dashboard-content">
-            <!-- Header dengan judul dan tombol tambah -->
+            <!-- Header -->
             <div class="page-header">
                 <div class="header-left">
                     <h1 class="page-title">Kelola Navbar</h1>
-                    <p class="page-subtitle">Kelola menu navigasi website laboratorium</p>
+                    <p class="page-subtitle">Manajemen menu navigasi utama website.</p>
                 </div>
                 <div class="header-right">
                     <a href="tambah_navbar.php" class="btn btn-primary">
@@ -63,9 +59,9 @@ unset($_SESSION['message'], $_SESSION['message_type']);
             
             <!-- Pesan alert -->
             <?php if ($message): ?>
-            <div class="alert alert-<?php echo $message_type; ?>">
+            <div class="alert alert-<?php echo htmlspecialchars($message_type); ?>">
                 <i class="fas fa-<?php echo ($message_type == 'success') ? 'check-circle' : 'exclamation-circle'; ?>"></i>
-                <?php echo $message; ?>
+                <?php echo htmlspecialchars($message); ?>
             </div>
             <?php endif; ?>
             
@@ -92,7 +88,7 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (empty($navbar_items)): ?>
+                            <?php if (empty($navbar_list)): ?>
                             <tr class="empty-state-row">
                                 <td colspan="4" class="empty-state">
                                     <i class="fas fa-bars"></i>
@@ -101,26 +97,18 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                                 </td>
                             </tr>
                             <?php else: ?>
-                            <?php $no = 1; ?>
-                            <?php foreach ($navbar_items as $item): ?>
+                            <?php $no = 1; foreach ($navbar_list as $nav): ?>
                             <tr>
                                 <td class="text-center"><?php echo $no++; ?></td>
-                                <td>
-                                    <div class="menu-info">
-                                        <i class="fas fa-link menu-icon"></i>
-                                        <span><?php echo htmlspecialchars($item['nama_navbar']); ?></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <code><?php echo htmlspecialchars($item['url_nav']); ?></code>
-                                </td>
+                                <td><?php echo htmlspecialchars($nav['nama_navbar'] ?? ''); ?></td>
+                                <td><code><?php echo htmlspecialchars($nav['url_nav'] ?? ''); ?></code></td>
                                 <td class="action-buttons">
-                                    <a href="edit_navbar.php?id=<?php echo $item['id_navbar']; ?>" class="btn btn-sm btn-edit" title="Edit">
+                                    <a href="edit_navbar.php?id=<?php echo $nav['id_navbar']; ?>" class="btn btn-sm btn-edit" title="Edit">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <button class="btn btn-sm btn-delete" 
-                                            data-id="<?php echo $item['id_navbar']; ?>" 
-                                            data-name="<?php echo htmlspecialchars($item['nama_navbar']); ?>"
+                                            data-id="<?php echo $nav['id_navbar']; ?>" 
+                                            data-name="<?php echo htmlspecialchars($nav['nama_navbar'] ?? ''); ?>"
                                             title="Hapus">
                                         <i class="fas fa-trash"></i> Hapus
                                     </button>
@@ -135,23 +123,8 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                 <!-- Footer tabel -->
                 <div class="table-footer">
                     <div class="table-info">
-                        Total: <strong><?php echo count($navbar_items); ?></strong> menu
+                        Total: <strong><?php echo count($navbar_list); ?></strong> menu
                     </div>
-                </div>
-            </div>
-            
-            <!-- Info tambahan -->
-            <div class="card info-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-info-circle"></i> Panduan Navbar</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="guide-list">
-                        <li><strong>Nama Menu</strong> akan ditampilkan di navbar website</li>
-                        <li><strong>URL</strong> adalah alaman yang akan dituju ketika menu diklik</li>
-                        <li>URL bisa relatif (contoh: index.php) atau absolut (contoh: https://example.com)</li>
-                        <li>Menu akan ditampilkan sesuai urutan ID secara ascending</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -161,24 +134,23 @@ unset($_SESSION['message'], $_SESSION['message_type']);
     <div id="deleteModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-trash"></i> Konfirmasi Hapus</h3>
+                <h3><i class="fas fa-trash-alt"></i> Konfirmasi Hapus</h3>
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
                 <p>Apakah Anda yakin ingin menghapus menu <strong id="deleteItemName"></strong>?</p>
-                <p class="text-muted">Menu yang dihapus tidak dapat dikembalikan.</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline cancel-delete">Batal</button>
-                <a href="hapus_navbar.php" class="btn btn-danger" id="confirmDelete">Ya, Hapus</a>
+                <a href="#" class="btn btn-danger" id="confirmDelete">Ya, Hapus</a>
             </div>
         </div>
     </div>
+
     <script src="js/dashboardJS.js"></script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fungsionalitas Pencarian
+            // Script untuk pencarian
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 searchInput.addEventListener('keyup', function() {
@@ -192,7 +164,7 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                 });
             }
 
-            // Fungsionalitas Modal Hapus
+            // Script untuk modal hapus
             const deleteModal = document.getElementById('deleteModal');
             document.querySelectorAll('.btn-delete').forEach(button => {
                 button.addEventListener('click', function() {
@@ -204,11 +176,7 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                 });
             });
 
-            // Logika untuk menutup modal
-            const closeModal = () => {
-                if (deleteModal) deleteModal.style.display = 'none';
-            };
-
+            const closeModal = () => deleteModal.style.display = 'none';
             deleteModal.querySelector('.modal-close').addEventListener('click', closeModal);
             deleteModal.querySelector('.cancel-delete').addEventListener('click', closeModal);
             deleteModal.addEventListener('click', (e) => {

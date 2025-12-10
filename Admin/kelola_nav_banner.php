@@ -102,11 +102,11 @@ unset($_SESSION['message'], $_SESSION['message_type']);
                                 <td class="text-center"><?php echo $no++; ?></td>
                                 <td>
                                     <div class="user-profile-cell">
-                                        <img src="../<?php echo htmlspecialchars($banner['icon_navbanner']); ?>" alt="Ikon" class="avatar-square">
-                                        <span class="user-name-cell"><?php echo htmlspecialchars($banner['nama']); ?></span>
+                                        <img src="../<?php echo htmlspecialchars($banner['icon_navbanner'] ?? ''); ?>" alt="Ikon" class="avatar-square">
+                                        <span class="user-name-cell"><?php echo htmlspecialchars($banner['nama'] ?? ''); ?></span>
                                     </div>
                                 </td>
-                                <td><code><?php echo htmlspecialchars($banner['url_navbanner']); ?></code></td>
+                                <td><code><?php echo htmlspecialchars($banner['url_navbanner'] ?? ''); ?></code></td>
                                 <td class="action-buttons">
                                     <a href="edit_nav_banner.php?id=<?php echo $banner['id_navbanner']; ?>" class="btn btn-sm btn-edit" title="Edit">
                                         <i class="fas fa-edit"></i> Edit
