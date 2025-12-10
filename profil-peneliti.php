@@ -235,6 +235,7 @@
                     <li><a href="berita.php">Berita</a></li>
                     <li><a href="galeri.php">Galeri</a></li>
                     <li><a href="javascript:void(0);" onclick="return false;">Layanan</a></li>
+                    <?php include '../ProfileRing.php'; ?>
                 </ul>
             </nav>
         </div>

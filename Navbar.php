@@ -63,6 +63,9 @@ pg_result_seek($nav_result, 0);
                         </ul>
                     </nav>
                     
+                    <!-- Profile Ring Component -->
+                    <?php include 'ProfileRing.php'; ?>
+                    
                     <!-- Mobile Menu Toggle -->
                     <div class="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>

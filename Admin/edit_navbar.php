@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                        id="nama_navbar" 
                                        name="nama_navbar" 
                                        class="form-control" 
-                                       value="<?php echo isset($_POST['nama_navbar']) ? htmlspecialchars($_POST['nama_navbar']) : htmlspecialchars($navbar['nama_navbar']); ?>"
+                                       value="<?php echo isset($_POST['nama_navbar']) ? htmlspecialchars($_POST['nama_navbar']) : htmlspecialchars($navbar['nama_navbar'] ?? ''); ?>"
                                        required>
                             </div>
                         </div>
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                        id="url_nav" 
                                        name="url_nav" 
                                        class="form-control" 
-                                       value="<?php echo isset($_POST['url_nav']) ? htmlspecialchars($_POST['url_nav']) : htmlspecialchars($navbar['url_nav']); ?>"
+                                       value="<?php echo isset($_POST['url_nav']) ? htmlspecialchars($_POST['url_nav']) : htmlspecialchars($navbar['url_nav'] ?? ''); ?>"
                                        required>
                             </div>
                         </div>
@@ -158,13 +158,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="navbar-preview">
                                 <div class="preview-menu-item">
                                     <i class="fas fa-link"></i>
-                                    <span id="previewText" class="preview-text"><?php echo htmlspecialchars($navbar['nama_navbar']); ?></span>
+                                    <span id="previewText" class="preview-text"><?php echo htmlspecialchars($navbar['nama_navbar'] ?? ''); ?></span>
                                 </div>
                             </div>
                             <div class="preview-details">
                                 <div class="preview-detail">
                                     <span class="detail-label">URL:</span>
-                                    <span id="previewUrl" class="detail-value"><?php echo htmlspecialchars($navbar['url_nav']); ?></span>
+                                    <span id="previewUrl" class="detail-value"><?php echo htmlspecialchars($navbar['url_nav'] ?? ''); ?></span>
                                 </div>
                                 <div class="preview-detail">
                                     <span class="detail-label">ID:</span>

@@ -5,7 +5,7 @@ require_once '../koneksi.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($id > 0) {
-    $query = "DELETE FROM admin WHERE id_admin = $1";
+    $query = "DELETE FROM admin_user WHERE id_admin = $1";
     $result = pg_query_params($conn, $query, [$id]);
 
     if ($result) {

@@ -268,6 +268,7 @@
                     <li><a href="berita.html">Berita</a></li>
                     <li><a href="galeri.html">Galeri</a></li>
                     <li><a href="layanan.html">Layanan</a></li>
+                    <?php include 'ProfileRing.php'; ?>
                 </ul>
             </nav>
         </div>

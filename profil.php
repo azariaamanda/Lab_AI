@@ -398,6 +398,7 @@ if (!$footer) {
         <li><a href="Galeri.php">Galeri</a></li>
         <li><a href="layanan.php">Layanan</a></li>
       </ul>
+                  <?php include 'ProfileRing.php'; ?>
     </nav>
   </div>
 </header>
