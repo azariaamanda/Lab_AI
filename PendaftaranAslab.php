@@ -111,7 +111,7 @@ if (isset($_POST['submit_pendaftaran'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pendaftaran Asisten Laboratorium</title>
     <link rel="stylesheet" href="css/StyleNavbar.css" />
-    <link rel="stylesheet" href="css/StylePendaftaranAslab.css" />
+    <link rel="stylesheet" href="css/StylePendaftaran.css" />
     <link rel="stylesheet" href="css/StyleFooter" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -224,6 +224,22 @@ if (isset($_POST['submit_pendaftaran'])) {
           </div>
         </div>
 
+        <div class="pernyataan-section">
+          <h3>Pernyataan</h3>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="pernyataan1" required>
+              <span>Saya menyatakan bahwa semua data yang diisi adalah benar dan dapat dipertanggungjawabkan.</span>
+            </label>
+          </div>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="pernyataan2" required>
+              <span>Saya bersedia mengikuti semua tahapan seleksi yang ditentukan.</span>
+            </label>
+          </div>
+        </div>
+
       <button type="submit" name="submit_pendaftaran" class="btn-submit" style="margin-top: 20px;">Daftar Asisten Laboratorium</button>
     </form>
 
@@ -247,4 +263,5 @@ bindFileInput("filePorto", "filePortoText");
 </script>
 
 </body>
+<?php include 'footer.php'; ?>
 </html>

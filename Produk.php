@@ -31,7 +31,6 @@ $result = pg_query($conn, $query);
   </div>
 </section>
 
-<section class="kategori-section">
   <div class="container produk-wrapper">
     <?php 
       $no = 1;

@@ -79,7 +79,12 @@ body {
     color: white;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transition: 0.3s ease;  
+    transition: 0.3s ease;
+    
+    /* Tambahkan ini */
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
 }
 
 /* Efek hover */
@@ -104,7 +109,8 @@ body {
 
 .card p {
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    flex-grow: 1;
 }
 
 .btn {
@@ -115,6 +121,8 @@ body {
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
+    margin-top: auto;
+
 }
 
 .btn:hover {
