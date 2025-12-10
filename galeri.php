@@ -52,7 +52,7 @@ if (!$query) {
 <section class="berita-header" style="background-image: url('img/header/headerjti.jpg');">
     <div class="overlay">
         <div class="container">
-            <h1 class="berita-title">BERITA</h1>
+          <h1 class="berita-title" style="color: #ffffff !important;">GALERI</h1>
         </div>
     </div>
 </section>
