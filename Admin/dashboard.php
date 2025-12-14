@@ -1,11 +1,14 @@
 <?php
 // ============ SESSION & CONNECTION ============
-// session_start();
-// if (!isset($_SESSION['username'])) {
-//     header("Location: login.php");
-//     exit;
-// }
+session_start(); // Ensure session is started
+if (!isset($_SESSION['username']) || !isset($_SESSION['id_admin'])) { // Check for both username and id_admin
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit;
+}
 require_once '../koneksi.php';
+
+// Define user_name for the welcome message
+$user_name = $_SESSION['nama_lengkap'] ?? $_SESSION['username'] ?? 'Admin'; // Use nama_lengkap if available, else username
 
 // ============ STATISTIK DASHBOARD ============
 $query_stats = "SELECT * FROM get_dashboard_statistics()";
@@ -240,8 +243,12 @@ $chart_data_json = json_encode(array(
 
     <!-- Dashboard Content -->
     <div class="dashboard-content">
-        <h1 class="page-title">Dashboard</h1>
-        <p class="page-subtitle">Selamat datang, <?php echo htmlspecialchars($user_name); ?>. Berikut ringkasan aktivitas terbaru.</p>
+        <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Selamat datang, <?php echo htmlspecialchars($user_name); ?>. Berikut ringkasan aktivitas terbaru. 
+                <a href="profil_admin.php" class="btn btn-sm btn-info" style="margin-left: 10px;"><i class="fas fa-user-circle"></i> Profil Saya</a>
+            </p>
+        </div>
         
         <!-- Stats Cards -->
         <div class="stats-grid">
